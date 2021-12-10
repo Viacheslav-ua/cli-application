@@ -1,0 +1,27 @@
+{
+  "name": "cli-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Viacheslav-ua/cli-application.git"
+  },
+  "author": "Viacheslav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Viacheslav-ua/cli-application/issues"
+  },
+  "homepage": "https://github.com/Viacheslav-ua/cli-application#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "commander": "^8.3.0"
+  }
+}
