@@ -25,7 +25,12 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
 
     case "get":
-      console.table(await getContactById(id));
+      const result = await getContactById(id);
+      if(result === void 0) {
+        console.log('\x1B[31mContact not found\x1B[37m')
+        process.exit()
+      }
+      console.table();
       break;
 
     case "add":

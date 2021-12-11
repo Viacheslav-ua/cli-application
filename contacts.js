@@ -26,13 +26,8 @@ const getListContacts = async () => {
  * @returns {promise} contact obj
  */
 const getContactById = async (contactId) => {
-  try {
-    const data = await getListContacts();
-    return data.find((item) => item.id === contactId);
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
+  const data = await getListContacts();
+  return data.find((item) => item.id === contactId);
 };
 
 /**
@@ -41,10 +36,21 @@ const getContactById = async (contactId) => {
  * @param {string} contactId
  */
 const removeContact = async (contactId) => {
+  const data = await getListContacts();
+  let isFound = false;
+  result = data.filter((item) => {
+    if(item.id === contactId){
+      isFound = true;
+      return false
+    }
+    return true
+    });
+  if(!isFound) {
+    console.log(`\x1B[31mContact ${contactId} not found\x1B[37m`)
+    process.exit()
+  }
   try {
-    const data = await getListContacts();
-    result = data.filter((item) => item.id !== contactId);
-    fs.writeFile(contactsPath, JSON.stringify(result, null, 2));
+    return await fs.writeFile(contactsPath, JSON.stringify(result, null, 2));
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -59,10 +65,10 @@ const removeContact = async (contactId) => {
  * @param {string} phone
  */
 const addContact = async (name, email, phone) => {
+  const data = await getListContacts();
+  data.push({ name, email, phone, id: crypto.randomUUID() });
   try {
-    const data = await getListContacts();
-    data.push({ name, email, phone, id: crypto.randomUUID() });
-    fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
+    await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
   } catch (error) {
     console.log(error);
     process.exit(1);
