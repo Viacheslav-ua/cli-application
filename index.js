@@ -34,6 +34,14 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
 
     case "add":
+      if (name === void 0) {
+        console.log('\x1B[31mWhen adding a contact, the name field must have an entry\x1B[37m')
+        process.exit();
+      }
+      if (email === void 0 && phone === void 0) {
+        console.log('\x1B[31mThe added contact must contain a phone number or e-mail\x1B[37m')
+        process.exit();
+      }
       await addContact(name, email, phone);
       console.log("\x1B[32mSuccessfully added\x1B[37m");
       break;
